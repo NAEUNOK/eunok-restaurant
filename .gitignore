@@ -1,0 +1,10 @@
+# Git for Windows 설치 폴더 (프로그램 본체 403MB — 저장소에 포함하지 않음)
+Git/
+
+# Windows 바로가기 (내 PC 경로에만 유효)
+*.lnk
+
+# OS가 만드는 파일
+Thumbs.db
+desktop.ini
+.DS_Store

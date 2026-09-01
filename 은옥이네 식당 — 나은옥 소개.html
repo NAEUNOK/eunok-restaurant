@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<!-- saved from url=(0083)file:///C:/Users/%EC%97%AC%EC%9D%B8%EC%B2%A0/Desktop/Downloads/eunok-profile_1.html -->
+<html lang="ko"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>은옥이네 식당 — 나은옥 소개</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link href="./은옥이네 식당 — 나은옥 소개_files/css2" rel="stylesheet">
+<style>
+  :root{
+    --bg: #FFF3E1;
+    --paper: #FFFDF8;
+    --ink: #3E2723;
+    --ink-soft: #6D4C41;
+    --red: #FF6F59;
+    --green: #6FA287;
+    --yellow: #FFC94A;
+    --blush: #FFD9CC;
+    --line: #E4D7C3;
+  }
+
+  * { box-sizing: border-box; }
+  @media (prefers-reduced-motion: reduce){
+    * { animation: none !important; transition: none !important; }
+  }
+
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Gowun Dodum', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  .page{ max-width: 760px; margin: 0 auto; padding: 0 20px 80px; position: relative; }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position: relative;
+    padding: 72px 10px 56px;
+    text-align: center;
+    overflow: hidden;
+  }
+  .doodle{
+    position:absolute;
+    font-size: 28px;
+    opacity: 0.55;
+    animation: bob 5s ease-in-out infinite;
+    filter: saturate(0.9);
+  }
+  .doodle:nth-child(1){ top: 8%; left: 6%; animation-delay: 0s; font-size: 30px;}
+  .doodle:nth-child(2){ top: 12%; right: 8%; animation-delay: 0.6s; font-size: 26px;}
+  .doodle:nth-child(3){ top: 55%; left: 2%; animation-delay: 1.2s; font-size: 24px;}
+  .doodle:nth-child(4){ top: 60%; right: 4%; animation-delay: 1.8s; font-size: 32px;}
+  .doodle:nth-child(5){ top: 2%; left: 42%; animation-delay: 2.2s; font-size: 22px;}
+  .doodle:nth-child(6){ top: 78%; left: 30%; animation-delay: 0.9s; font-size: 24px;}
+  @keyframes bob{
+    0%,100%{ transform: translateY(0) rotate(-4deg); }
+    50%{ transform: translateY(-14px) rotate(6deg); }
+  }
+
+  .signboard{
+    display:inline-block;
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: clamp(40px, 9vw, 64px);
+    color: var(--red);
+    letter-spacing: 2px;
+    text-shadow: 3px 3px 0 var(--yellow);
+    margin: 0;
+  }
+  .tagline{
+    font-family: 'Gaegu', cursive;
+    font-size: 20px;
+    color: var(--ink-soft);
+    margin-top: 10px;
+  }
+  .badge{
+    display:inline-block;
+    margin-top: 22px;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 15px;
+    letter-spacing: 1px;
+    padding: 8px 18px;
+    border-radius: 999px;
+  }
+
+  /* ---------- RECEIPT ---------- */
+  .receipt-wrap{
+    animation: printOut 0.9s cubic-bezier(.2,.9,.25,1.05) both;
+    transform-origin: top center;
+  }
+  @keyframes printOut{
+    0%{ transform: scaleY(0.15) translateY(-10px); opacity: 0; }
+    100%{ transform: scaleY(1) translateY(0); opacity: 1; }
+  }
+
+  .receipt{
+    position: relative;
+    background: var(--paper);
+    padding: 38px 30px 30px;
+    box-shadow: 0 18px 40px rgba(62,39,35,0.15);
+  }
+  .receipt::before{
+    content:"";
+    position:absolute; top:-1px; left:0; right:0; height:14px;
+    background: radial-gradient(circle at 10px 0, transparent 8px, var(--bg) 9px) repeat-x;
+    background-size: 20px 16px;
+    background-position: top;
+  }
+  .receipt::after{
+    content:"";
+    position:absolute; left:0; right:0; bottom:-13px; height:14px;
+    background:
+      linear-gradient(135deg, var(--paper) 50%, transparent 50%),
+      linear-gradient(45deg, transparent 50%, var(--paper) 50%);
+    background-size: 16px 16px;
+    background-position: top left, top left;
+    background-repeat: repeat-x;
+  }
+
+  .r-title{
+    text-align:center;
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 24px;
+    letter-spacing: 3px;
+  }
+  .r-sub{
+    text-align:center;
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-top: 4px;
+    letter-spacing: 1px;
+  }
+  .r-meta{
+    display:flex; justify-content: space-between;
+    font-size: 12px; color: var(--ink-soft);
+    margin-top: 16px;
+    font-family: 'Gowun Dodum', sans-serif;
+  }
+
+  .dashed{
+    border: none;
+    border-top: 2px dashed var(--line);
+    margin: 18px 0;
+  }
+
+  .r-item{
+    display:flex; justify-content: space-between; align-items: baseline;
+    gap: 12px;
+    padding: 7px 0;
+    font-size: 15px;
+    transition: background 0.2s ease;
+  }
+  .r-item:hover{ background: var(--blush); }
+  .r-item .name{ font-family: 'Gaegu', cursive; font-size: 17px; }
+  .r-item .status{
+    white-space: nowrap;
+    font-size: 12.5px;
+    color: var(--green);
+    font-weight: 700;
+  }
+
+  .r-total{
+    display:flex; justify-content: space-between; align-items:center;
+    margin-top: 10px;
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 18px;
+    color: var(--red);
+  }
+
+  .stamp{
+    position:absolute;
+    top: 40px; right: 26px;
+    width: 82px; height: 82px;
+    border: 3px solid var(--red);
+    border-radius: 50%;
+    color: var(--red);
+    display:flex; align-items:center; justify-content:center;
+    text-align:center;
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 12px;
+    line-height: 1.3;
+    transform: rotate(-16deg);
+    opacity: 0.85;
+  }
+
+  .barcode{
+    margin-top: 22px;
+    height: 34px;
+    background: repeating-linear-gradient(
+      90deg, var(--ink) 0px, var(--ink) 2px, transparent 2px, transparent 5px,
+      var(--ink) 5px, var(--ink) 6px, transparent 6px, transparent 10px
+    );
+  }
+  .barcode-label{
+    text-align:center;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--ink-soft);
+    margin-top: 6px;
+  }
+  .thanks{
+    text-align:center;
+    font-family:'Gaegu', cursive;
+    font-size: 15px;
+    color: var(--ink-soft);
+    margin-top: 16px;
+  }
+
+  /* ---------- ROUTINE ---------- */
+  .routine{ margin-top: 70px; }
+  .routine h2{
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 26px;
+    color: var(--ink);
+    text-align:center;
+    letter-spacing: 1px;
+  }
+  .routine h2 span{ color: var(--red); }
+
+  .timeline{ margin-top: 30px; position: relative; }
+  .timeline::before{
+    content:"";
+    position:absolute; left: 27px; top: 6px; bottom: 6px;
+    width: 3px;
+    background: var(--line);
+  }
+  .t-item{
+    position: relative;
+    display:flex;
+    gap: 18px;
+    padding: 14px 0;
+  }
+  .t-time{
+    flex: 0 0 56px;
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 13px;
+    color: var(--paper);
+    background: var(--green);
+    border-radius: 999px;
+    height: 56px; width: 56px;
+    display:flex; align-items:center; justify-content:center;
+    position: relative; z-index: 1;
+  }
+  .t-text{ padding-top: 10px; }
+  .t-text b{ font-family: 'Gaegu', cursive; font-size: 17px; }
+  .t-text p{ margin: 2px 0 0; font-size: 14px; color: var(--ink-soft); }
+
+  footer{
+    text-align:center;
+    margin-top: 70px;
+    font-family: 'Gaegu', cursive;
+    font-size: 16px;
+    color: var(--ink-soft);
+  }
+  footer .small{ font-size: 12px; margin-top: 6px; opacity: 0.75; }
+
+  @media (max-width: 480px){
+    .receipt{ padding: 32px 18px 24px; }
+    .stamp{ width: 66px; height: 66px; font-size: 10px; top: 30px; right: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <header class="hero">
+    <span class="doodle">🍙</span>
+    <span class="doodle">🍰</span>
+    <span class="doodle">🍜</span>
+    <span class="doodle">🍡</span>
+    <span class="doodle">☕️</span>
+    <span class="doodle">🍿</span>
+    <h1 class="signboard">은옥이네</h1>
+    <p class="tagline">매일 뭐 먹을지 세상에서 제일 진지하게 고민하는 귀염둥이</p>
+    <div class="badge">귀염 지수 ★★★★★</div>
+  </header>
+
+  <main>
+    <section class="receipt-wrap">
+      <div class="receipt">
+        <div class="stamp">GRADE<br>A+<br>귀여움<br>검수완료</div>
+        <p class="r-title">은옥이네 식당</p>
+        <p class="r-sub">— 나은옥 소개 영수증 —</p>
+        <div class="r-meta">
+          <span>테이블 NO. 37</span>
+          <span>37년째 영업 중</span>
+        </div>
+
+        <hr class="dashed">
+
+        <div class="r-item"><span class="name">상냥한 미소 세트</span><span class="status">기본 제공</span></div>
+        <div class="r-item"><span class="name">애교 한 스푼</span><span class="status">무한리필</span></div>
+        <div class="r-item"><span class="name">귀여움 곱빼기</span><span class="status">품절 임박</span></div>
+        <div class="r-item"><span class="name">먹부림 스페셜</span><span class="status">오늘도 주문 가능</span></div>
+        <div class="r-item"><span class="name">다정함 토핑 추가</span><span class="status">+ 무료</span></div>
+        <div class="r-item"><span class="name">웃음 버튼</span><span class="status">누르면 나옴</span></div>
+
+        <hr class="dashed">
+
+        <div class="r-total"><span>사랑받는 지수 총합</span><span>∞</span></div>
+
+        <div class="barcode"></div>
+        <p class="barcode-label">EUNOK · 37 · CUTIE</p>
+        <p class="thanks">오늘도 방문해주셔서 감사합니다 🍡</p>
+      </div>
+    </section>
+
+    <section class="routine">
+      <h2>은옥이의 <span>하루 루틴</span></h2>
+      <div class="timeline">
+        <div class="t-item">
+          <div class="t-time">08시</div>
+          <div class="t-text"><b>기상</b><p>눈 뜨자마자 "오늘 아침은 뭐 먹지?"</p></div>
+        </div>
+        <div class="t-item">
+          <div class="t-time">09시</div>
+          <div class="t-text"><b>아침 식사</b><p>하루의 시작은 든든하게 채우기</p></div>
+        </div>
+        <div class="t-item">
+          <div class="t-time">12시</div>
+          <div class="t-text"><b>점심 고민</b><p>"어제 뭐 먹었더라..." 진지한 회의 시작</p></div>
+        </div>
+        <div class="t-item">
+          <div class="t-time">15시</div>
+          <div class="t-text"><b>디저트 타임</b><p>당 충전은 선택이 아니라 필수</p></div>
+        </div>
+        <div class="t-item">
+          <div class="t-time">19시</div>
+          <div class="t-text"><b>저녁 만찬</b><p>하루 중 가장 신중한 결정의 시간</p></div>
+        </div>
+        <div class="t-item">
+          <div class="t-time">22시</div>
+          <div class="t-text"><b>야식 등장</b><p>못 참지, 참으면 지는 거니까</p></div>
+        </div>
+        <div class="t-item">
+          <div class="t-time">24시</div>
+          <div class="t-text"><b>취침</b><p>내일은 뭐 먹을지 생각하며 스르륵</p></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    은옥이네 식당 · 오늘도 맛있게, 귀엽게 🍡
+    <div class="small">Made with 사랑 for 나은옥</div>
+  </footer>
+
+</div>
+
+
+
+</body></html>
