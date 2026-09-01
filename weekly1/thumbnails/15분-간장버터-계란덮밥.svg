@@ -1,0 +1,169 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="지브리풍 간장버터 계란덮밥 썸네일">
+  <title>15분 간장버터 계란덮밥</title>
+  <defs>
+    <linearGradient id="sky2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F6C98E"/>
+      <stop offset="55%" stop-color="#F8E2B8"/>
+      <stop offset="100%" stop-color="#FBF0D5"/>
+    </linearGradient>
+    <linearGradient id="wall2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F8EFDD"/>
+      <stop offset="100%" stop-color="#EEDCBE"/>
+    </linearGradient>
+    <linearGradient id="table2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#B98553"/>
+      <stop offset="100%" stop-color="#996538"/>
+    </linearGradient>
+    <linearGradient id="bowl2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3E5D74"/>
+      <stop offset="100%" stop-color="#2A4457"/>
+    </linearGradient>
+    <radialGradient id="glow2" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#FFEFC6" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#FFEFC6" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="yolk" cx="0.38" cy="0.34" r="0.72">
+      <stop offset="0%" stop-color="#FFD766"/>
+      <stop offset="70%" stop-color="#F5A623"/>
+      <stop offset="100%" stop-color="#E08A12"/>
+    </radialGradient>
+    <linearGradient id="ray2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFF0CE" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#FFF0CE" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="soft2" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="18"/></filter>
+    <filter id="paper2"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" seed="11" result="n"/><feColorMatrix in="n" type="saturate" values="0"/></filter>
+    <filter id="wash2" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.013" numOctaves="3" seed="5" result="t"/>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="7" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <clipPath id="win2"><rect x="742" y="70" width="380" height="290" rx="14"/></clipPath>
+    <clipPath id="riceClip"><path d="M232 384 h396 a198 104 0 0 1 -396 0 z"/></clipPath>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#wall2)"/>
+
+  <!-- 창문: 노을 -->
+  <g>
+    <rect x="730" y="58" width="404" height="314" rx="20" fill="#A9784B"/>
+    <rect x="742" y="70" width="380" height="290" rx="14" fill="url(#sky2)"/>
+    <g clip-path="url(#win2)" filter="url(#wash2)">
+      <circle cx="900" cy="236" r="46" fill="#FFD9A0" opacity="0.95"/>
+      <path d="M742 274 q86 -50 168 -18 q80 32 212 -20 v124 h-380 z" fill="#B99C6A"/>
+      <path d="M742 306 q104 -34 200 2 q78 28 180 -10 v82 h-380 z" fill="#8E7B52"/>
+      <g fill="#FFFFFF" opacity="0.7">
+        <ellipse cx="828" cy="140" rx="44" ry="16"/>
+        <ellipse cx="1024" cy="168" rx="52" ry="15"/>
+      </g>
+      <g stroke="#7A6A55" stroke-width="2.4" fill="none" stroke-linecap="round" opacity="0.8">
+        <path d="M978 122 q7 -7 14 0 q7 -7 14 0"/>
+        <path d="M1024 106 q6 -6 12 0 q6 -6 12 0"/>
+      </g>
+    </g>
+    <g stroke="#A9784B" stroke-width="12" stroke-linecap="round">
+      <path d="M932 70 v290"/><path d="M742 215 h380"/>
+    </g>
+  </g>
+
+  <g opacity="0.75">
+    <path d="M742 92 L300 630 L560 630 L1000 94 Z" fill="url(#ray2)"/>
+  </g>
+  <ellipse cx="430" cy="420" rx="330" ry="180" fill="url(#glow2)" filter="url(#soft2)"/>
+
+  <!-- 테이블 -->
+  <path d="M0 470 h1200 v160 h-1200 z" fill="url(#table2)"/>
+  <g stroke="#7E5330" stroke-width="2" opacity="0.35" fill="none">
+    <path d="M0 514 q300 -10 600 0 t600 0"/>
+    <path d="M0 560 q280 12 560 0 t640 0"/>
+    <path d="M0 604 q340 -8 620 2 t580 -2"/>
+  </g>
+  <rect x="0" y="466" width="1200" height="10" fill="#D0A472"/>
+  <ellipse cx="430" cy="472" rx="232" ry="34" fill="#6E4A28" opacity="0.3" filter="url(#soft2)"/>
+
+  <!-- 남색 사기 그릇 -->
+  <g>
+    <ellipse cx="430" cy="384" rx="208" ry="76" fill="#4A6B84"/>
+    <path d="M222 384 h416 a208 104 0 0 1 -416 0 z" fill="url(#bowl2)"/>
+    <ellipse cx="430" cy="384" rx="208" ry="76" fill="none" stroke="#F2E7D2" stroke-width="8"/>
+    <!-- 그릇 문양 -->
+    <g stroke="#DDE9F0" stroke-width="4" fill="none" opacity="0.5">
+      <path d="M262 424 q28 20 56 26" /><path d="M560 434 q26 -8 44 -24"/>
+    </g>
+  </g>
+
+  <!-- 밥 -->
+  <g clip-path="url(#riceClip)">
+    <ellipse cx="430" cy="372" rx="182" ry="62" fill="#F7F2E6"/>
+    <ellipse cx="430" cy="364" rx="168" ry="52" fill="#FFFDF6"/>
+    <!-- 간장 양념 스민 자국 -->
+    <g fill="#C79A55" opacity="0.5">
+      <ellipse cx="330" cy="386" rx="52" ry="20"/>
+      <ellipse cx="524" cy="380" rx="46" ry="16"/>
+      <ellipse cx="428" cy="410" rx="70" ry="18"/>
+    </g>
+    <!-- 밥알 -->
+    <g fill="#EFE7D4" opacity="0.9">
+      <ellipse cx="326" cy="358" rx="9" ry="5" transform="rotate(-18 326 358)"/>
+      <ellipse cx="366" cy="344" rx="9" ry="5" transform="rotate(12 366 344)"/>
+      <ellipse cx="500" cy="352" rx="9" ry="5" transform="rotate(-8 500 352)"/>
+      <ellipse cx="536" cy="368" rx="9" ry="5" transform="rotate(22 536 368)"/>
+      <ellipse cx="298" cy="378" rx="9" ry="5" transform="rotate(6 298 378)"/>
+    </g>
+    <!-- 김가루 -->
+    <g fill="#2F3B42" opacity="0.85">
+      <rect x="316" y="336" width="16" height="4" rx="2" transform="rotate(-16 316 336)"/>
+      <rect x="486" y="330" width="18" height="4" rx="2" transform="rotate(10 486 330)"/>
+      <rect x="540" y="392" width="14" height="4" rx="2" transform="rotate(-24 540 392)"/>
+      <rect x="292" y="404" width="16" height="4" rx="2" transform="rotate(8 292 404)"/>
+    </g>
+  </g>
+
+  <!-- 계란 프라이 -->
+  <g transform="translate(430 352)">
+    <path d="M-118 6 q-16 -44 26 -58 q10 -34 54 -30 q30 -24 62 -2 q42 -6 52 30 q34 20 16 56 q10 34 -34 40 q-24 24 -62 12 q-34 16 -66 -4 q-44 4 -48 -44 z"
+          fill="#FFFCF3" stroke="#EFE3CC" stroke-width="3"/>
+    <path d="M-96 22 q-12 -30 18 -42" fill="none" stroke="#F3E9D6" stroke-width="5" stroke-linecap="round"/>
+    <ellipse cx="6" cy="-2" rx="52" ry="44" fill="url(#yolk)"/>
+    <ellipse cx="-12" cy="-18" rx="18" ry="12" fill="#FFE9A8" opacity="0.75"/>
+  </g>
+
+  <!-- 김 -->
+  <g fill="none" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round" opacity="0.45">
+    <path d="M352 272 q-22 -38 6 -72 q24 -30 4 -60"/>
+    <path d="M430 258 q-22 -42 8 -78 q26 -32 6 -64"/>
+    <path d="M508 276 q-20 -36 8 -68 q22 -28 6 -56"/>
+  </g>
+
+  <!-- 간장 종지 -->
+  <g transform="translate(716 430)">
+    <ellipse cx="0" cy="40" rx="58" ry="14" fill="#6E4A28" opacity="0.3"/>
+    <path d="M-56 4 a56 30 0 0 0 112 0 z" fill="#EDE3D0" stroke="#CDBFA4" stroke-width="3"/>
+    <ellipse cx="0" cy="4" rx="56" ry="18" fill="#F6EFE0" stroke="#CDBFA4" stroke-width="3"/>
+    <ellipse cx="0" cy="6" rx="44" ry="13" fill="#4A3018"/>
+    <ellipse cx="-12" cy="2" rx="12" ry="4" fill="#7A5730" opacity="0.6"/>
+  </g>
+
+  <!-- 버터 조각 -->
+  <g transform="translate(158 428)">
+    <ellipse cx="10" cy="46" rx="48" ry="12" fill="#6E4A28" opacity="0.28"/>
+    <path d="M-40 36 h72 l18 -22 h-72 z" fill="#F7DC8C"/>
+    <path d="M-40 36 v-22 h72 v22 z" fill="#FBE9AE"/>
+    <path d="M32 36 v-22 l18 -22 v22 z" fill="#E9C868"/>
+  </g>
+
+  <!-- 젓가락 -->
+  <g transform="translate(752 528) rotate(-6)" fill="#8A6A3E">
+    <rect x="0" y="-6" width="180" height="8" rx="4"/>
+    <rect x="0" y="10" width="180" height="8" rx="4"/>
+  </g>
+
+  <!-- 텍스트 -->
+  <g>
+    <rect x="72" y="500" width="420" height="86" rx="20" fill="#FFFAEE" opacity="0.94" stroke="#D9C7A3" stroke-width="3"/>
+    <text x="98" y="540" font-family="'Pretendard','Malgun Gothic','Apple SD Gothic Neo',sans-serif" font-size="38" font-weight="700" fill="#5A4326">15분 간장버터 계란덮밥</text>
+    <text x="98" y="570" font-family="'Pretendard','Malgun Gothic','Apple SD Gothic Neo',sans-serif" font-size="19" fill="#8A7554">노른자를 터뜨리는 순간이 전부인 한 그릇</text>
+  </g>
+
+  <rect width="1200" height="630" filter="url(#paper2)" opacity="0.12" style="mix-blend-mode:multiply"/>
+  <rect width="1200" height="630" fill="none" stroke="#8E6B44" stroke-width="16" opacity="0.12"/>
+</svg>

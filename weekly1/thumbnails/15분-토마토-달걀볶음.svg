@@ -1,0 +1,167 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="지브리풍 토마토 달걀볶음 썸네일">
+  <title>15분 토마토 달걀볶음</title>
+  <defs>
+    <linearGradient id="sky3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#A8DCE8"/>
+      <stop offset="60%" stop-color="#D6EFEA"/>
+      <stop offset="100%" stop-color="#F1EAC9"/>
+    </linearGradient>
+    <linearGradient id="wall3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F5F0E0"/>
+      <stop offset="100%" stop-color="#E7DFC6"/>
+    </linearGradient>
+    <linearGradient id="table3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#C29A6E"/>
+      <stop offset="100%" stop-color="#A37B4E"/>
+    </linearGradient>
+    <linearGradient id="pan" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4C4C50"/>
+      <stop offset="100%" stop-color="#2F2F33"/>
+    </linearGradient>
+    <radialGradient id="tomato" cx="0.35" cy="0.3" r="0.8">
+      <stop offset="0%" stop-color="#F0705E"/>
+      <stop offset="65%" stop-color="#D8412F"/>
+      <stop offset="100%" stop-color="#B22E20"/>
+    </radialGradient>
+    <radialGradient id="glow3" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#FFF4D4" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#FFF4D4" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ray3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFF7DD" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#FFF7DD" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="soft3" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="18"/></filter>
+    <filter id="paper3"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" seed="19" result="n"/><feColorMatrix in="n" type="saturate" values="0"/></filter>
+    <filter id="wash3" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="3" seed="9" result="t"/>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="7" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <clipPath id="win3"><rect x="742" y="70" width="380" height="290" rx="14"/></clipPath>
+    <clipPath id="panClip"><ellipse cx="440" cy="378" rx="196" ry="82"/></clipPath>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#wall3)"/>
+
+  <!-- 창문 -->
+  <g>
+    <rect x="730" y="58" width="404" height="314" rx="20" fill="#B58E62"/>
+    <rect x="742" y="70" width="380" height="290" rx="14" fill="url(#sky3)"/>
+    <g clip-path="url(#win3)" filter="url(#wash3)">
+      <path d="M742 272 q78 -46 152 -18 q70 26 132 -10 q56 -32 96 8 v118 h-380 z" fill="#A8CBA0"/>
+      <path d="M742 306 q98 -40 190 -4 q84 32 190 -14 v82 h-380 z" fill="#7FAE76"/>
+      <!-- 밭이랑 -->
+      <g stroke="#6B9963" stroke-width="3" opacity="0.6">
+        <path d="M742 330 q190 -18 380 -4"/><path d="M742 344 q190 -16 380 -2"/>
+      </g>
+      <g fill="#FFFFFF" opacity="0.9">
+        <ellipse cx="852" cy="130" rx="48" ry="20"/>
+        <ellipse cx="890" cy="122" rx="32" ry="23"/>
+        <ellipse cx="1040" cy="172" rx="38" ry="17"/>
+      </g>
+      <g stroke="#5A6B72" stroke-width="2.4" fill="none" stroke-linecap="round" opacity="0.75">
+        <path d="M960 112 q8 -8 16 0 q8 -8 16 0"/>
+      </g>
+    </g>
+    <g stroke="#B58E62" stroke-width="12" stroke-linecap="round">
+      <path d="M932 70 v290"/><path d="M742 215 h380"/>
+    </g>
+  </g>
+
+  <g opacity="0.7"><path d="M742 92 L300 630 L560 630 L1000 94 Z" fill="url(#ray3)"/></g>
+  <ellipse cx="440" cy="415" rx="330" ry="175" fill="url(#glow3)" filter="url(#soft3)"/>
+
+  <!-- 테이블 -->
+  <path d="M0 470 h1200 v160 h-1200 z" fill="url(#table3)"/>
+  <g stroke="#87643B" stroke-width="2" opacity="0.35" fill="none">
+    <path d="M0 514 q300 -10 600 0 t600 0"/>
+    <path d="M0 560 q280 12 560 0 t640 0"/>
+    <path d="M0 604 q340 -8 620 2 t580 -2"/>
+  </g>
+  <rect x="0" y="466" width="1200" height="10" fill="#D6AC7C"/>
+  <ellipse cx="440" cy="466" rx="228" ry="32" fill="#6E4A28" opacity="0.3" filter="url(#soft3)"/>
+
+  <!-- 무쇠 팬 -->
+  <g>
+    <path d="M636 358 h190 a16 16 0 0 1 0 32 h-190 z" fill="#5A4632"/>
+    <path d="M636 362 h186 a12 12 0 0 1 0 24 h-186 z" fill="#725A40"/>
+    <ellipse cx="440" cy="386" rx="204" ry="88" fill="#26262A"/>
+    <ellipse cx="440" cy="378" rx="204" ry="88" fill="url(#pan)"/>
+    <ellipse cx="440" cy="378" rx="184" ry="74" fill="#3A3A3F"/>
+    <ellipse cx="440" cy="378" rx="184" ry="74" fill="none" stroke="#565660" stroke-width="3" opacity="0.7"/>
+  </g>
+
+  <!-- 요리 -->
+  <g clip-path="url(#panClip)">
+    <!-- 소스 국물 -->
+    <ellipse cx="440" cy="392" rx="168" ry="60" fill="#C24A34" opacity="0.55"/>
+    <!-- 스크램블 에그 덩어리 -->
+    <g fill="#F7C94B" stroke="#E0AC2C" stroke-width="3">
+      <path d="M300 368 q22 -32 58 -20 q30 10 20 38 q-14 26 -50 20 q-34 -6 -28 -38 z"/>
+      <path d="M400 336 q26 -28 58 -14 q28 14 14 40 q-18 24 -50 16 q-30 -10 -22 -42 z"/>
+      <path d="M498 386 q20 -30 54 -18 q28 12 16 38 q-16 24 -48 16 q-28 -8 -22 -36 z"/>
+      <path d="M356 416 q24 -26 56 -12 q26 14 12 38 q-18 22 -48 12 q-26 -10 -20 -38 z"/>
+    </g>
+    <g fill="#FFE28F" opacity="0.75">
+      <ellipse cx="322" cy="360" rx="18" ry="10" transform="rotate(-14 322 360)"/>
+      <ellipse cx="428" cy="334" rx="18" ry="9" transform="rotate(8 428 334)"/>
+      <ellipse cx="522" cy="380" rx="16" ry="9" transform="rotate(-6 522 380)"/>
+    </g>
+    <!-- 토마토 웨지 -->
+    <g stroke="#8E2418" stroke-width="3">
+      <path d="M366 344 q34 -26 70 -6 q-8 34 -44 40 q-32 -6 -26 -34 z" fill="url(#tomato)"/>
+      <path d="M466 404 q38 -22 70 2 q-14 32 -50 34 q-30 -10 -20 -36 z" fill="url(#tomato)"/>
+      <path d="M292 400 q34 -24 66 -2 q-10 32 -46 36 q-30 -8 -20 -34 z" fill="url(#tomato)"/>
+      <path d="M552 340 q32 -20 60 2 q-12 28 -44 30 q-26 -8 -16 -32 z" fill="url(#tomato)"/>
+    </g>
+    <!-- 토마토 속살 -->
+    <g fill="#F5A79A" opacity="0.85">
+      <path d="M386 350 q22 -10 38 2 q-8 16 -26 20 q-16 -6 -12 -22 z"/>
+      <path d="M486 410 q22 -10 38 4 q-10 16 -28 18 q-16 -6 -10 -22 z"/>
+    </g>
+    <!-- 대파 -->
+    <g fill="#5E9C4F" stroke="#417538" stroke-width="2">
+      <ellipse cx="404" cy="392" rx="11" ry="7" transform="rotate(-20 404 392)"/>
+      <ellipse cx="468" cy="352" rx="10" ry="6" transform="rotate(14 468 352)"/>
+      <ellipse cx="344" cy="384" rx="10" ry="6" transform="rotate(4 344 384)"/>
+      <ellipse cx="546" cy="404" rx="10" ry="6" transform="rotate(-12 546 404)"/>
+    </g>
+  </g>
+
+  <!-- 김 -->
+  <g fill="none" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round" opacity="0.42">
+    <path d="M360 288 q-24 -40 4 -74 q24 -30 4 -60"/>
+    <path d="M446 274 q-22 -42 8 -78 q26 -32 6 -62"/>
+    <path d="M528 292 q-20 -36 8 -68 q22 -28 6 -54"/>
+  </g>
+
+  <!-- 통토마토 -->
+  <g transform="translate(140 412)">
+    <ellipse cx="4" cy="58" rx="52" ry="13" fill="#6E4A28" opacity="0.28"/>
+    <circle cx="0" cy="14" r="46" fill="url(#tomato)"/>
+    <ellipse cx="-16" cy="-4" rx="14" ry="9" fill="#FF9E88" opacity="0.6" transform="rotate(-30 -16 -4)"/>
+    <g fill="#5E9C4F">
+      <path d="M0 -32 l14 -14 l2 16 l16 -6 l-10 14 l16 4 l-16 8 l-22 -8 z"/>
+      <path d="M0 -32 l-14 -14 l-2 16 l-16 -6 l10 14 l-16 4 l16 8 l22 -8 z"/>
+      <rect x="-3" y="-46" width="6" height="14" rx="3"/>
+    </g>
+  </g>
+
+  <!-- 계란 -->
+  <g transform="translate(694 452)">
+    <ellipse cx="0" cy="34" rx="42" ry="11" fill="#6E4A28" opacity="0.26"/>
+    <ellipse cx="0" cy="4" rx="30" ry="36" fill="#FBF3E4" stroke="#E4D6BC" stroke-width="3"/>
+    <ellipse cx="-10" cy="-8" rx="9" ry="12" fill="#FFFFFF" opacity="0.7"/>
+    <ellipse cx="52" cy="16" rx="26" ry="31" fill="#F6EDDB" stroke="#E4D6BC" stroke-width="3"/>
+  </g>
+
+  <!-- 텍스트 -->
+  <g>
+    <rect x="72" y="500" width="400" height="86" rx="20" fill="#FFFAEE" opacity="0.94" stroke="#D9C7A3" stroke-width="3"/>
+    <text x="98" y="540" font-family="'Pretendard','Malgun Gothic','Apple SD Gothic Neo',sans-serif" font-size="38" font-weight="700" fill="#5A4326">15분 토마토 달걀볶음</text>
+    <text x="98" y="570" font-family="'Pretendard','Malgun Gothic','Apple SD Gothic Neo',sans-serif" font-size="19" fill="#8A7554">따로 익혀 마지막에 합치는 중국 가정식</text>
+  </g>
+
+  <rect width="1200" height="630" filter="url(#paper3)" opacity="0.12" style="mix-blend-mode:multiply"/>
+  <rect width="1200" height="630" fill="none" stroke="#8E6B44" stroke-width="16" opacity="0.12"/>
+</svg>

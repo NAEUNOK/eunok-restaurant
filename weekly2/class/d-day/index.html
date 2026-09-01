@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>D-Day 카운터</title>
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone@7.25.9/babel.min.js"></script>
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .card-enter {
+      animation: fadeIn 0.25s ease-out;
+    }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+  </style>
+</head>
+<body class="bg-slate-50 min-h-screen">
+  <div id="root"></div>
+  <script type="text/babel">
+    const { useState, useEffect, useMemo, useRef } = React;
+
+    // ========================================
+    // 🎨 Design System Components
+    // ========================================
+
+    function Button({ children, variant = 'primary', size = 'md', disabled, onClick, className = '', type = 'button', ...rest }) {
+      const base = 'inline-flex items-center justify-center font-semibold rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
+      const variants = {
+        primary: 'bg-indigo-600 text-white hover:bg-indigo-700 focus:ring-indigo-500',
+        secondary: 'bg-slate-100 text-slate-700 hover:bg-slate-200 focus:ring-slate-400',
+        danger: 'bg-red-50 text-red-600 hover:bg-red-100 focus:ring-red-400',
+        ghost: 'bg-transparent text-slate-500 hover:bg-slate-100 focus:ring-slate-300',
+      };
+      const sizes = {
+        sm: 'px-3 py-1.5 text-sm gap-1',
+        md: 'px-4 py-2 text-sm gap-1.5',
+        lg: 'px-5 py-3 text-base gap-2',
+      };
+      return (
+        <button
+          type={type}
+          onClick={onClick}
+          disabled={disabled}
+          className={`${base} ${variants[variant]} ${sizes[size]} ${className}`}
+          {...rest}
+        >
+          {children}
+        </button>
+      );
+    }
+
+    function Input({ label, type = 'text', value, onChange, placeholder, error, disabled, className = '', ...rest }) {
+      return (
+        <label className="block">
+          {label && <span className="block mb-1 text-sm font-medium text-slate-700">{label}</span>}
+          <input
+            type={type}
+            value={value}
+            onChange={onChange}
+            placeholder={placeholder}
+            disabled={disabled}
+            className={`w-full px-3 py-2 border rounded-lg text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 disabled:bg-slate-100 ${error ? 'border-red-400' : 'border-slate-300'} ${className}`}
+            {...rest}
+          />
+          {error && <span className="block mt-1 text-xs text-red-500">{error}</span>}
+        </label>
+      );
+    }
+
+    function Card({ children, className = '' }) {
+      return (
+        <div className={`bg-white rounded-2xl shadow-sm border border-slate-200 ${className}`}>
+          {children}
+        </div>
+      );
+    }
+
+    function Badge({ children, color = 'indigo' }) {
+      const colors = {
+        indigo: 'bg-indigo-100 text-indigo-700',
+        green: 'bg-emerald-100 text-emerald-700',
+        red: 'bg-red-100 text-red-700',
+        slate: 'bg-slate-100 text-slate-600',
+      };
+      return (
+        <span className={`inline-block px-2.5 py-1 rounded-full text-xs font-semibold ${colors[color]}`}>
+          {children}
+        </span>
+      );
+    }
+
+    // ========================================
+    // 🧩 Common/Layout Components
+    // ========================================
+
+    function Header() {
+      return (
+        <header className="mb-8 text-center">
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-800 tracking-tight">
+            📅 D-Day 카운터
+          </h1>
+          <p className="mt-2 text-slate-500 text-sm sm:text-base">
+            소중한 날짜까지 남은 시간을 한눈에 확인하세요
+          </p>
+        </header>
+      );
+    }
+
+    // ========================================
+    // 📄 Page Components
+    // ========================================
+
+    const STORAGE_KEY = 'ddday-events-v1';
+    const EMOJI_OPTIONS = ['🎯', '🎉', '✈️', '🎓', '💼', '💍', '🎂', '🏆', '📝', '❤️'];
+
+    function loadEvents() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function saveEvents(events) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(events));
+      } catch (e) {
+        // storage unavailable — ignore
+      }
+    }
+
+    function todayStr() {
+      const d = new Date();
+      d.setHours(0, 0, 0, 0);
+      const y = d.getFullYear();
+      const m = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return `${y}-${m}-${day}`;
+    }
+
+    function diffDays(targetDateStr) {
+      const target = new Date(targetDateStr + 'T00:00:00');
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const msPerDay = 24 * 60 * 60 * 1000;
+      return Math.round((target - today) / msPerDay);
+    }
+
+    function formatDDay(n) {
+      if (n === 0) return 'D-Day';
+      if (n > 0) return `D-${n}`;
+      return `D+${Math.abs(n)}`;
+    }
+
+    function formatDate(dateStr) {
+      const d = new Date(dateStr + 'T00:00:00');
+      const days = ['일', '월', '화', '수', '목', '금', '토'];
+      return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')} (${days[d.getDay()]})`;
+    }
+
+    function DDayForm({ onAdd }) {
+      const [title, setTitle] = useState('');
+      const [date, setDate] = useState('');
+      const [emoji, setEmoji] = useState(EMOJI_OPTIONS[0]);
+      const [error, setError] = useState('');
+
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        if (!title.trim()) {
+          setError('제목을 입력해주세요.');
+          return;
+        }
+        if (!date) {
+          setError('날짜를 선택해주세요.');
+          return;
+        }
+        onAdd({ id: Date.now().toString(), title: title.trim(), date, emoji });
+        setTitle('');
+        setDate('');
+        setEmoji(EMOJI_OPTIONS[0]);
+        setError('');
+      };
+
+      return (
+        <Card className="p-5 sm:p-6 mb-8">
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <Input
+                label="제목"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder="예: 여름방학, 시험일, 생일"
+                error={title === '' ? '' : undefined}
+              />
+              <Input
+                label="날짜"
+                type="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+              />
+            </div>
+
+            <div>
+              <span className="block mb-1 text-sm font-medium text-slate-700">아이콘 선택</span>
+              <div className="flex flex-wrap gap-2">
+                {EMOJI_OPTIONS.map((em) => (
+                  <button
+                    type="button"
+                    key={em}
+                    onClick={() => setEmoji(em)}
+                    aria-label={`아이콘 ${em} 선택`}
+                    className={`w-10 h-10 flex items-center justify-center text-xl rounded-lg border transition-colors ${
+                      emoji === em ? 'border-indigo-500 bg-indigo-50' : 'border-slate-200 hover:bg-slate-50'
+                    }`}
+                  >
+                    {em}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {error && <p className="text-sm text-red-500">{error}</p>}
+
+            <div className="flex justify-end">
+              <Button type="submit" size="md">
+                + 디데이 추가
+              </Button>
+            </div>
+          </form>
+        </Card>
+      );
+    }
+
+    function DDayCard({ event, onDelete }) {
+      const n = diffDays(event.date);
+      const isToday = n === 0;
+      const isPast = n < 0;
+
+      const badgeColor = isToday ? 'red' : isPast ? 'slate' : 'indigo';
+
+      return (
+        <Card className={`card-enter p-5 flex flex-col gap-3 relative overflow-hidden ${isToday ? 'ring-2 ring-red-400' : ''}`}>
+          <div className="flex items-start justify-between">
+            <div className="flex items-center gap-2 min-w-0">
+              <span className="text-2xl shrink-0" aria-hidden="true">{event.emoji}</span>
+              <h3 className="font-bold text-slate-800 text-lg truncate" title={event.title}>
+                {event.title}
+              </h3>
+            </div>
+            <button
+              onClick={() => onDelete(event.id)}
+              aria-label={`${event.title} 삭제`}
+              className="text-slate-300 hover:text-red-500 transition-colors shrink-0 ml-2"
+            >
+              ✕
+            </button>
+          </div>
+
+          <div className="flex items-end justify-between">
+            <span className={`text-3xl font-extrabold ${isToday ? 'text-red-500' : isPast ? 'text-slate-400' : 'text-indigo-600'}`}>
+              {formatDDay(n)}
+            </span>
+            <Badge color={badgeColor}>
+              {isPast ? '지남' : isToday ? '오늘' : '예정'}
+            </Badge>
+          </div>
+
+          <p className="text-sm text-slate-500">{formatDate(event.date)}</p>
+        </Card>
+      );
+    }
+
+    function EmptyState() {
+      return (
+        <div className="text-center py-16 text-slate-400">
+          <div className="text-5xl mb-3">🗓️</div>
+          <p className="text-sm">아직 등록된 디데이가 없어요.</p>
+          <p className="text-sm">위 폼에서 첫 디데이를 추가해보세요!</p>
+        </div>
+      );
+    }
+
+    function DDayPage() {
+      const [events, setEvents] = useState(() => loadEvents());
+      const [, forceTick] = useState(0);
+
+      useEffect(() => {
+        saveEvents(events);
+      }, [events]);
+
+      // 자정이 지나면 D-day 값이 갱신되도록 1분 간격으로 리렌더링
+      useEffect(() => {
+        const timer = setInterval(() => forceTick((t) => t + 1), 60 * 1000);
+        return () => clearInterval(timer);
+      }, []);
+
+      const handleAdd = (event) => {
+        setEvents((prev) => [...prev, event]);
+      };
+
+      const handleDelete = (id) => {
+        setEvents((prev) => prev.filter((e) => e.id !== id));
+      };
+
+      const sortedEvents = useMemo(() => {
+        return [...events].sort((a, b) => diffDays(a.date) - diffDays(b.date));
+      }, [events]);
+
+      return (
+        <div className="max-w-4xl mx-auto px-4 py-10 sm:py-14">
+          <Header />
+          <DDayForm onAdd={handleAdd} />
+
+          {sortedEvents.length === 0 ? (
+            <EmptyState />
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {sortedEvents.map((event) => (
+                <DDayCard key={event.id} event={event} onDelete={handleDelete} />
+              ))}
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    // ========================================
+    // 🚀 App Component
+    // ========================================
+
+    function App() {
+      return <DDayPage />;
+    }
+
+    // ========================================
+    // Rendering
+    // ========================================
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

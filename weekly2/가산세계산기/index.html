@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>납부불성실 가산세 계산기</title>
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <!-- ⚠️ 모든 CDN은 버전을 명시적으로 고정한다. -->
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone@7.25.9/babel.min.js"></script>
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in { animation: fadeIn 0.35s ease-out; }
+  </style>
+</head>
+<body class="bg-slate-50 min-h-screen">
+  <div id="root"></div>
+  <script type="text/babel">
+    const { useState, useMemo, useCallback } = React;
+
+    // ========================================
+    // 📚 세율 상수 (국세기본법 제47조의4 납부지연가산세)
+    // ========================================
+
+    // 1일당 이자율 연혁 (국세기본법 시행령 제27조의4)
+    const RATE_TIERS = [
+      { label: "~2019.02.11", from: null, to: "2019-02-11", dailyRate: 0.0003 },
+      { label: "2019.02.12~2022.02.14", from: "2019-02-12", to: "2022-02-14", dailyRate: 0.00025 },
+      { label: "2022.02.15~현재", from: "2022-02-15", to: null, dailyRate: 0.00022 },
+    ];
+
+    const SURCHARGE_MIN_AMOUNT = 1500000; // 150만원 미만은 3% 가산세(2호) 미적용
+    const SURCHARGE_RATE = 0.03;
+
+    function toDayIndex(dateStr) {
+      // 로컬 자정 기준 정수 day index (일수 계산용)
+      const [y, m, d] = dateStr.split("-").map(Number);
+      return Math.floor(Date.UTC(y, m - 1, d) / 86400000);
+    }
+
+    function overlapDays(rangeStart, rangeEnd, tierStart, tierEnd) {
+      const start = Math.max(rangeStart, tierStart);
+      const end = Math.min(rangeEnd, tierEnd);
+      return Math.max(0, end - start + 1);
+    }
+
+    function formatWon(n) {
+      return Math.floor(n).toLocaleString("ko-KR") + "원";
+    }
+
+    function todayStr() {
+      const d = new Date();
+      const y = d.getFullYear();
+      const m = String(d.getMonth() + 1).padStart(2, "0");
+      const day = String(d.getDate()).padStart(2, "0");
+      return `${y}-${m}-${day}`;
+    }
+
+    // ========================================
+    // 🎨 Design System Components
+    // ========================================
+
+    function Card({ children, className = "" }) {
+      return (
+        <div className={`bg-white rounded-2xl shadow-md border border-slate-100 p-6 sm:p-8 ${className}`}>
+          {children}
+        </div>
+      );
+    }
+
+    function Button({ children, variant = "primary", size = "md", disabled = false, onClick, className = "" }) {
+      const base = "inline-flex items-center justify-center font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed";
+      const variants = {
+        primary: "bg-indigo-600 text-white hover:bg-indigo-700 focus:ring-indigo-500",
+        secondary: "bg-slate-100 text-slate-700 hover:bg-slate-200 focus:ring-slate-400",
+        ghost: "bg-transparent text-indigo-600 hover:bg-indigo-50 focus:ring-indigo-400",
+      };
+      const sizes = {
+        sm: "text-sm px-3 py-1.5",
+        md: "text-sm sm:text-base px-4 py-2.5",
+        lg: "text-base sm:text-lg px-6 py-3",
+      };
+      return (
+        <button
+          type="button"
+          disabled={disabled}
+          onClick={onClick}
+          className={`${base} ${variants[variant]} ${sizes[size]} ${className}`}
+        >
+          {children}
+        </button>
+      );
+    }
+
+    function Input({ label, type = "text", value, onChange, placeholder, error, id, suffix, ...rest }) {
+      return (
+        <div className="w-full">
+          {label && (
+            <label htmlFor={id} className="block text-sm font-medium text-slate-700 mb-1.5">
+              {label}
+            </label>
+          )}
+          <div className="relative">
+            <input
+              id={id}
+              type={type}
+              value={value}
+              onChange={onChange}
+              placeholder={placeholder}
+              aria-invalid={!!error}
+              className={`w-full rounded-lg border px-4 py-2.5 text-slate-900 shadow-sm focus:outline-none focus:ring-2 transition-colors
+                ${suffix ? "pr-12" : ""}
+                ${error ? "border-red-400 focus:ring-red-300" : "border-slate-300 focus:ring-indigo-400 focus:border-indigo-400"}`}
+              {...rest}
+            />
+            {suffix && (
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-slate-400">{suffix}</span>
+            )}
+          </div>
+          {error && <p className="mt-1.5 text-sm text-red-600">{error}</p>}
+        </div>
+      );
+    }
+
+    function StatBadge({ label, value, unit, highlight = false }) {
+      return (
+        <div
+          className={`rounded-xl p-5 text-center border ${
+            highlight ? "bg-indigo-600 border-indigo-600" : "bg-slate-50 border-slate-100"
+          }`}
+        >
+          <p className={`text-sm mb-1 ${highlight ? "text-indigo-100" : "text-slate-500"}`}>{label}</p>
+          <p className={`text-2xl sm:text-3xl font-bold ${highlight ? "text-white" : "text-slate-800"}`}>
+            {value}
+            {unit && <span className="text-base font-medium ml-1">{unit}</span>}
+          </p>
+        </div>
+      );
+    }
+
+    // ========================================
+    // 📄 Page Components
+    // ========================================
+
+    function PenaltyCalculatorPage() {
+      const [taxAmount, setTaxAmount] = useState("");
+      const [dueDate, setDueDate] = useState("");
+      const [payDate, setPayDate] = useState(todayStr());
+      const [includeSurcharge, setIncludeSurcharge] = useState(false);
+      const [noticeDueDate, setNoticeDueDate] = useState("");
+      const [error, setError] = useState("");
+
+      const handleAmountChange = useCallback((e) => {
+        const raw = e.target.value.replace(/[^0-9]/g, "");
+        setTaxAmount(raw);
+        setError("");
+      }, []);
+
+      const handleTodayClick = useCallback(() => {
+        setPayDate(todayStr());
+      }, []);
+
+      const handleReset = useCallback(() => {
+        setTaxAmount("");
+        setDueDate("");
+        setPayDate(todayStr());
+        setIncludeSurcharge(false);
+        setNoticeDueDate("");
+        setError("");
+      }, []);
+
+      const result = useMemo(() => {
+        if (!taxAmount || !dueDate || !payDate) return null;
+
+        const amount = Number(taxAmount);
+        if (!amount || amount <= 0) return null;
+
+        const dueIdx = toDayIndex(dueDate);
+        const payIdx = toDayIndex(payDate);
+
+        if (payIdx <= dueIdx) {
+          return { invalid: true, message: "납부일이 법정납부기한보다 늦어야 가산세가 계산됩니다." };
+        }
+
+        const rangeStart = dueIdx + 1;
+        const rangeEnd = payIdx;
+
+        const breakdown = RATE_TIERS.map((tier) => {
+          const tierStart = tier.from ? toDayIndex(tier.from) : -Infinity;
+          const tierEnd = tier.to ? toDayIndex(tier.to) : Infinity;
+          const days = overlapDays(rangeStart, rangeEnd, tierStart, tierEnd);
+          const subtotal = amount * days * tier.dailyRate;
+          return { ...tier, days, subtotal };
+        }).filter((t) => t.days > 0);
+
+        const interestTotal = breakdown.reduce((sum, t) => sum + t.subtotal, 0);
+        const totalDays = rangeEnd - rangeStart + 1;
+
+        let surcharge = 0;
+        let surchargeApplied = false;
+        let surchargeSkippedReason = "";
+        if (includeSurcharge) {
+          if (amount < SURCHARGE_MIN_AMOUNT) {
+            surchargeSkippedReason = "체납액이 150만원 미만이라 3% 가산세는 적용되지 않습니다.";
+          } else if (!noticeDueDate) {
+            surchargeSkippedReason = "고지서 납부기한을 입력하면 3% 가산세를 함께 계산합니다.";
+          } else {
+            const noticeIdx = toDayIndex(noticeDueDate);
+            if (payIdx > noticeIdx) {
+              surcharge = amount * SURCHARGE_RATE;
+              surchargeApplied = true;
+            } else {
+              surchargeSkippedReason = "고지서 납부기한까지 납부했다면 3% 가산세는 부과되지 않습니다.";
+            }
+          }
+        }
+
+        const totalPenalty = interestTotal + surcharge;
+
+        return {
+          invalid: false,
+          amount,
+          totalDays,
+          breakdown,
+          interestTotal,
+          surcharge,
+          surchargeApplied,
+          surchargeSkippedReason,
+          totalPenalty,
+          totalPayable: amount + totalPenalty,
+        };
+      }, [taxAmount, dueDate, payDate, includeSurcharge, noticeDueDate]);
+
+      return (
+        <div className="min-h-screen flex items-start justify-center px-4 py-10 sm:py-16">
+          <div className="w-full max-w-2xl">
+            <div className="text-center mb-8">
+              <h1 className="text-2xl sm:text-3xl font-bold text-slate-900">🧾 납부불성실 가산세 계산기</h1>
+              <p className="mt-2 text-slate-500 text-sm sm:text-base">
+                미납·과소납부 세액과 기한을 입력하면 국세기본법상 납부지연가산세를 계산해드려요.
+              </p>
+            </div>
+
+            <Card>
+              <div className="space-y-4">
+                <Input
+                  id="taxAmount"
+                  label="미납(과소납부) 세액"
+                  value={taxAmount ? Number(taxAmount).toLocaleString("ko-KR") : ""}
+                  onChange={handleAmountChange}
+                  placeholder="예: 5,000,000"
+                  suffix="원"
+                  inputMode="numeric"
+                />
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <Input
+                    id="dueDate"
+                    type="date"
+                    label="법정납부기한"
+                    value={dueDate}
+                    onChange={(e) => { setDueDate(e.target.value); setError(""); }}
+                  />
+                  <div>
+                    <Input
+                      id="payDate"
+                      type="date"
+                      label="납부일(예정)"
+                      value={payDate}
+                      onChange={(e) => { setPayDate(e.target.value); setError(""); }}
+                    />
+                    <button
+                      type="button"
+                      onClick={handleTodayClick}
+                      className="mt-1.5 text-xs text-indigo-600 hover:text-indigo-800 underline"
+                    >
+                      오늘 날짜로 설정
+                    </button>
+                  </div>
+                </div>
+
+                <div className="rounded-xl border border-slate-200 p-4">
+                  <label className="flex items-start gap-2.5 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={includeSurcharge}
+                      onChange={(e) => setIncludeSurcharge(e.target.checked)}
+                      className="mt-0.5 w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-400"
+                    />
+                    <span className="text-sm text-slate-700">
+                      <span className="font-medium">고지서 미납 3% 가산세 포함 (선택)</span>
+                      <br />
+                      <span className="text-slate-400 text-xs">
+                        체납액 150만원 이상이고 납부고지서상 납부기한까지도 미납한 경우에만 추가됩니다.
+                      </span>
+                    </span>
+                  </label>
+
+                  {includeSurcharge && (
+                    <div className="mt-3 fade-in">
+                      <Input
+                        id="noticeDueDate"
+                        type="date"
+                        label="고지서 납부기한"
+                        value={noticeDueDate}
+                        onChange={(e) => setNoticeDueDate(e.target.value)}
+                      />
+                    </div>
+                  )}
+                </div>
+
+                <div className="flex gap-2 pt-1">
+                  <Button variant="secondary" onClick={handleReset} className="flex-1">
+                    초기화
+                  </Button>
+                </div>
+              </div>
+
+              {result && result.invalid && (
+                <div className="mt-6 rounded-xl bg-amber-50 border border-amber-100 p-4 text-center fade-in">
+                  <p className="text-sm text-amber-800">{result.message}</p>
+                </div>
+              )}
+
+              {result && !result.invalid && (
+                <div className="mt-8 fade-in">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <StatBadge label="가산세 합계" value={formatWon(result.totalPenalty)} highlight />
+                    <StatBadge label="연체일수" value={result.totalDays} unit="일" />
+                    <StatBadge label="총 납부금액" value={formatWon(result.totalPayable)} />
+                  </div>
+
+                  <div className="mt-6">
+                    <h2 className="text-sm font-semibold text-slate-700 mb-2">이자율 구간별 상세</h2>
+                    <div className="overflow-x-auto rounded-xl border border-slate-100">
+                      <table className="w-full text-sm">
+                        <thead>
+                          <tr className="bg-slate-50 text-slate-500 text-left">
+                            <th className="px-4 py-2.5 font-medium">적용기간</th>
+                            <th className="px-4 py-2.5 font-medium text-right">일수</th>
+                            <th className="px-4 py-2.5 font-medium text-right">일이자율</th>
+                            <th className="px-4 py-2.5 font-medium text-right">소계</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {result.breakdown.map((t) => (
+                            <tr key={t.label} className="border-t border-slate-100">
+                              <td className="px-4 py-2.5 text-slate-700">{t.label}</td>
+                              <td className="px-4 py-2.5 text-right text-slate-600">{t.days}일</td>
+                              <td className="px-4 py-2.5 text-right text-slate-600">{(t.dailyRate * 100).toFixed(3)}%</td>
+                              <td className="px-4 py-2.5 text-right text-slate-800 font-medium">{formatWon(t.subtotal)}</td>
+                            </tr>
+                          ))}
+                          <tr className="border-t border-slate-200 bg-slate-50">
+                            <td className="px-4 py-2.5 font-medium text-slate-700" colSpan="3">납부지연가산세 소계</td>
+                            <td className="px-4 py-2.5 text-right font-semibold text-slate-900">{formatWon(result.interestTotal)}</td>
+                          </tr>
+                          {includeSurcharge && (
+                            <tr className="border-t border-slate-100">
+                              <td className="px-4 py-2.5 text-slate-700" colSpan="3">
+                                고지 미납 3% 가산세
+                                {!result.surchargeApplied && (
+                                  <span className="block text-xs text-slate-400 mt-0.5">{result.surchargeSkippedReason}</span>
+                                )}
+                              </td>
+                              <td className="px-4 py-2.5 text-right font-semibold text-slate-900">{formatWon(result.surcharge)}</td>
+                            </tr>
+                          )}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <p className="mt-5 text-xs text-slate-400 leading-relaxed">
+                    * 국세기본법 제47조의4(납부지연가산세) 및 같은 법 시행령 제27조의4 기준 참고 계산입니다.
+                    <br />
+                    * 이자율 연혁: ~2019.02.11 1일 0.03% / 2019.02.12~2022.02.14 1일 0.025% / 2022.02.15~ 1일 0.022%
+                    <br />
+                    * 부과기간 5년 상한, 지방세·가산세 감면 특례 등은 반영되어 있지 않으니 실제 납부액은 홈택스 또는 관할 세무서·세무사를 통해 확인하세요.
+                  </p>
+                </div>
+              )}
+
+              {!result && (
+                <div className="mt-8 text-center text-slate-400 text-sm py-6 border-t border-slate-100">
+                  세액, 법정납부기한, 납부일을 입력해주세요
+                </div>
+              )}
+            </Card>
+          </div>
+        </div>
+      );
+    }
+
+    // ========================================
+    // 🚀 App Component
+    // ========================================
+
+    function App() {
+      return <PenaltyCalculatorPage />;
+    }
+
+    // ========================================
+    // Rendering
+    // ========================================
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>

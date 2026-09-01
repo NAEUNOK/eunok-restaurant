@@ -1,0 +1,227 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="지브리풍 바나나 캐러멜 프렌치토스트 썸네일">
+  <title>15분 바나나 캐러멜 프렌치토스트</title>
+  <defs>
+    <linearGradient id="sky5" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#CDE6F0"/>
+      <stop offset="50%" stop-color="#EAF3E8"/>
+      <stop offset="100%" stop-color="#FBF2D6"/>
+    </linearGradient>
+    <linearGradient id="wall5" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FBF3E2"/>
+      <stop offset="100%" stop-color="#F0E2C8"/>
+    </linearGradient>
+    <linearGradient id="table5" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#CBA377"/>
+      <stop offset="100%" stop-color="#AC8151"/>
+    </linearGradient>
+    <linearGradient id="toastTop" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#E8B96B"/>
+      <stop offset="50%" stop-color="#D89E45"/>
+      <stop offset="100%" stop-color="#C4842F"/>
+    </linearGradient>
+    <linearGradient id="toastSide" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F6E3B8"/>
+      <stop offset="100%" stop-color="#E2C489"/>
+    </linearGradient>
+    <linearGradient id="caramel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#D98E33"/>
+      <stop offset="100%" stop-color="#A85F16"/>
+    </linearGradient>
+    <radialGradient id="glow5" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#FFF2CE" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#FFF2CE" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ray5" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFF8E2" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#FFF8E2" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="soft5" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="18"/></filter>
+    <filter id="paper5"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" seed="31" result="n"/><feColorMatrix in="n" type="saturate" values="0"/></filter>
+    <filter id="wash5" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="3" seed="17" result="t"/>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="7" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <clipPath id="win5"><rect x="742" y="70" width="380" height="290" rx="14"/></clipPath>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#wall5)"/>
+
+  <!-- 창문: 맑은 아침 -->
+  <g>
+    <rect x="730" y="58" width="404" height="314" rx="20" fill="#C09468"/>
+    <rect x="742" y="70" width="380" height="290" rx="14" fill="url(#sky5)"/>
+    <g clip-path="url(#win5)" filter="url(#wash5)">
+      <circle cx="1046" cy="126" r="34" fill="#FFF0B4" opacity="0.9"/>
+      <path d="M742 276 q76 -50 150 -20 q70 28 130 -12 q56 -34 100 10 v116 h-380 z" fill="#A6CFA2"/>
+      <path d="M742 310 q100 -38 194 -2 q86 32 186 -16 v78 h-380 z" fill="#7EB37C"/>
+      <!-- 빨래줄 -->
+      <path d="M742 196 q190 26 380 -8" fill="none" stroke="#B49A6E" stroke-width="3"/>
+      <g fill="#F7F1E4" stroke="#DCCFB4" stroke-width="2">
+        <rect x="806" y="204" width="34" height="42" rx="4" transform="rotate(-3 806 204)"/>
+        <rect x="872" y="210" width="28" height="36" rx="4" transform="rotate(2 872 210)"/>
+        <rect x="1000" y="200" width="32" height="40" rx="4" transform="rotate(-2 1000 200)"/>
+      </g>
+      <g fill="#FFFFFF" opacity="0.9">
+        <ellipse cx="822" cy="126" rx="46" ry="19"/>
+        <ellipse cx="862" cy="118" rx="32" ry="22"/>
+      </g>
+      <g stroke="#5A6B72" stroke-width="2.4" fill="none" stroke-linecap="round" opacity="0.75">
+        <path d="M932 112 q8 -8 16 0 q8 -8 16 0"/>
+        <path d="M978 96 q6 -6 12 0 q6 -6 12 0"/>
+      </g>
+    </g>
+    <g stroke="#C09468" stroke-width="12" stroke-linecap="round">
+      <path d="M932 70 v290"/><path d="M742 215 h380"/>
+    </g>
+  </g>
+
+  <g opacity="0.8"><path d="M742 92 L300 630 L560 630 L1000 94 Z" fill="url(#ray5)"/></g>
+  <ellipse cx="430" cy="410" rx="330" ry="180" fill="url(#glow5)" filter="url(#soft5)"/>
+
+  <!-- 테이블 -->
+  <path d="M0 470 h1200 v160 h-1200 z" fill="url(#table5)"/>
+  <g stroke="#8E6B44" stroke-width="2" opacity="0.32" fill="none">
+    <path d="M0 514 q300 -10 600 0 t600 0"/>
+    <path d="M0 560 q280 12 560 0 t640 0"/>
+    <path d="M0 604 q340 -8 620 2 t580 -2"/>
+  </g>
+  <rect x="0" y="466" width="1200" height="10" fill="#DDB884"/>
+
+  <!-- 레이스 매트 -->
+  <g>
+    <ellipse cx="430" cy="446" rx="268" ry="52" fill="#FBF6EA" opacity="0.95"/>
+    <ellipse cx="430" cy="446" rx="268" ry="52" fill="none" stroke="#E3D6BC" stroke-width="3"/>
+    <ellipse cx="430" cy="446" rx="238" ry="42" fill="none" stroke="#E9DDC5" stroke-width="2" stroke-dasharray="8 10"/>
+  </g>
+
+  <!-- 접시 -->
+  <g>
+    <ellipse cx="430" cy="432" rx="222" ry="66" fill="#E4DACB"/>
+    <ellipse cx="430" cy="424" rx="222" ry="66" fill="#FBF8F1"/>
+    <ellipse cx="430" cy="424" rx="222" ry="66" fill="none" stroke="#D9A441" stroke-width="4" opacity="0.6"/>
+    <ellipse cx="430" cy="424" rx="184" ry="50" fill="#F3EDDF"/>
+  </g>
+
+  <!-- 캐러멜 소스 웅덩이 -->
+  <path d="M268 428 q46 32 162 34 q118 -2 164 -34 q-24 42 -164 44 q-140 -2 -162 -44 z" fill="url(#caramel)" opacity="0.55"/>
+
+  <!-- 프렌치토스트 아래 조각 -->
+  <g transform="translate(0 22)">
+    <path d="M258 372 l152 -46 l176 30 l-158 50 z" fill="url(#toastTop)"/>
+    <path d="M258 372 v40 l170 34 v-40 z" fill="url(#toastSide)"/>
+    <path d="M428 406 v40 l158 -50 v-40 z" fill="#D3B075"/>
+    <!-- 구운 자국 -->
+    <g fill="#B87A2C" opacity="0.55">
+      <ellipse cx="336" cy="358" rx="34" ry="11" transform="rotate(-9 336 358)"/>
+      <ellipse cx="470" cy="366" rx="42" ry="12" transform="rotate(6 470 366)"/>
+    </g>
+    <!-- 빵 결 -->
+    <g fill="#F7ECD2" opacity="0.55">
+      <circle cx="300" cy="396" r="5"/><circle cx="330" cy="412" r="4"/><circle cx="368" cy="400" r="5"/>
+      <circle cx="470" cy="418" r="4"/><circle cx="516" cy="404" r="5"/>
+    </g>
+  </g>
+
+  <!-- 프렌치토스트 위 조각 -->
+  <g transform="translate(24 -34)">
+    <path d="M264 366 l150 -48 l174 32 l-158 50 z" fill="url(#toastTop)"/>
+    <path d="M264 366 v38 l166 34 v-38 z" fill="url(#toastSide)"/>
+    <path d="M430 400 v38 l158 -50 v-38 z" fill="#D3B075"/>
+    <g fill="#B87A2C" opacity="0.5">
+      <ellipse cx="344" cy="350" rx="36" ry="11" transform="rotate(-10 344 350)"/>
+      <ellipse cx="478" cy="360" rx="40" ry="12" transform="rotate(7 478 360)"/>
+      <ellipse cx="404" cy="374" rx="28" ry="9" transform="rotate(-3 404 374)"/>
+    </g>
+    <g fill="#F7ECD2" opacity="0.5">
+      <circle cx="306" cy="390" r="5"/><circle cx="344" cy="406" r="4"/><circle cx="386" cy="396" r="4"/>
+      <circle cx="484" cy="412" r="5"/><circle cx="528" cy="398" r="4"/>
+    </g>
+  </g>
+
+  <!-- 흘러내리는 캐러멜 -->
+  <g fill="url(#caramel)">
+    <path d="M290 322 q34 -12 70 -6 q40 8 84 0 q46 -10 88 4 q42 12 72 2 q6 20 -30 26 q-40 8 -76 -2 q-44 -12 -88 -2 q-42 10 -80 0 q-38 -10 -40 -22 z"/>
+    <path d="M318 344 q-6 30 4 46 q12 16 20 -2 q6 -20 -6 -44 z"/>
+    <path d="M462 348 q-8 36 2 56 q12 18 20 -4 q6 -24 -8 -52 z"/>
+    <path d="M562 340 q-4 26 6 40 q10 12 16 -4 q4 -18 -8 -36 z"/>
+  </g>
+  <g fill="#F0B95E" opacity="0.5">
+    <path d="M320 320 q40 -10 78 -2 q-38 12 -78 2 z"/>
+    <path d="M470 322 q40 -10 74 2 q-38 10 -74 -2 z"/>
+  </g>
+
+  <!-- 캐러멜 입힌 바나나 슬라이스 -->
+  <g>
+    <g transform="translate(344 296) rotate(-12)">
+      <ellipse cx="0" cy="0" rx="34" ry="19" fill="#F6D97A" stroke="#C98F2C" stroke-width="4"/>
+      <ellipse cx="0" cy="0" rx="20" ry="10" fill="#FBEBB4"/>
+      <path d="M-6 -4 l6 8 l6 -8" fill="none" stroke="#E0BC66" stroke-width="2.5"/>
+    </g>
+    <g transform="translate(432 274) rotate(8)">
+      <ellipse cx="0" cy="0" rx="36" ry="20" fill="#F7DE86" stroke="#C98F2C" stroke-width="4"/>
+      <ellipse cx="0" cy="0" rx="21" ry="11" fill="#FCEEBE"/>
+      <path d="M-6 -4 l6 8 l6 -8" fill="none" stroke="#E0BC66" stroke-width="2.5"/>
+    </g>
+    <g transform="translate(520 300) rotate(-6)">
+      <ellipse cx="0" cy="0" rx="33" ry="18" fill="#F4D573" stroke="#C08429" stroke-width="4"/>
+      <ellipse cx="0" cy="0" rx="19" ry="10" fill="#FBEBB4"/>
+      <path d="M-6 -4 l6 8 l6 -8" fill="none" stroke="#E0BC66" stroke-width="2.5"/>
+    </g>
+    <g transform="translate(388 250) rotate(16)">
+      <ellipse cx="0" cy="0" rx="30" ry="17" fill="#F8E198" stroke="#C98F2C" stroke-width="4"/>
+      <ellipse cx="0" cy="0" rx="17" ry="9" fill="#FDF0C6"/>
+    </g>
+    <g transform="translate(478 244) rotate(-14)">
+      <ellipse cx="0" cy="0" rx="28" ry="16" fill="#F6D97A" stroke="#C98F2C" stroke-width="4"/>
+      <ellipse cx="0" cy="0" rx="16" ry="8" fill="#FBEBB4"/>
+    </g>
+  </g>
+
+  <!-- 슈거파우더 -->
+  <g fill="#FFFFFF" opacity="0.85">
+    <circle cx="308" cy="288" r="3"/><circle cx="366" cy="232" r="2.6"/><circle cx="420" cy="308" r="2.4"/>
+    <circle cx="466" cy="212" r="3"/><circle cx="528" cy="262" r="2.6"/><circle cx="566" cy="322" r="2.4"/>
+    <circle cx="284" cy="330" r="2.6"/><circle cx="342" cy="326" r="2.2"/><circle cx="504" cy="336" r="2.2"/>
+  </g>
+
+  <!-- 김 -->
+  <g fill="none" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round" opacity="0.4">
+    <path d="M366 196 q-22 -36 4 -68 q22 -28 4 -56"/>
+    <path d="M452 182 q-20 -38 8 -72 q24 -30 6 -58"/>
+  </g>
+
+  <!-- 바나나 한 송이 -->
+  <g transform="translate(154 400)">
+    <ellipse cx="10" cy="70" rx="66" ry="14" fill="#6E4A28" opacity="0.26"/>
+    <path d="M-52 40 q-14 -54 26 -80 q10 -4 12 6 q-30 26 -20 72 q22 14 52 4 q6 8 -4 12 q-46 12 -66 -14 z" fill="#F0CB52" stroke="#C79B27" stroke-width="4"/>
+    <path d="M-34 50 q-16 -56 26 -84 q10 -4 12 6 q-32 26 -22 76 q24 14 56 2 q6 8 -4 12 q-48 12 -68 -12 z" fill="#F6DA72" stroke="#C79B27" stroke-width="4"/>
+    <path d="M-8 -34 q-4 -14 10 -18 l6 10 z" fill="#8A6A3E"/>
+  </g>
+
+  <!-- 우유 한 잔 -->
+  <g transform="translate(724 400)">
+    <ellipse cx="0" cy="98" rx="46" ry="12" fill="#6E4A28" opacity="0.26"/>
+    <path d="M-36 -30 h72 l-8 118 a8 8 0 0 1 -8 6 h-40 a8 8 0 0 1 -8 -6 z" fill="#EAF0F2" opacity="0.55" stroke="#CBD8DC" stroke-width="3"/>
+    <path d="M-32 6 h64 l-6 82 a8 8 0 0 1 -8 6 h-36 a8 8 0 0 1 -8 -6 z" fill="#FDFBF6"/>
+    <ellipse cx="0" cy="6" rx="32" ry="9" fill="#FFFFFF"/>
+    <ellipse cx="0" cy="-30" rx="36" ry="10" fill="none" stroke="#CBD8DC" stroke-width="3"/>
+    <path d="M-24 -18 l-4 92" stroke="#FFFFFF" stroke-width="5" opacity="0.7" stroke-linecap="round"/>
+  </g>
+
+  <!-- 포크 -->
+  <g transform="translate(792 552) rotate(-5)" fill="#CFD6DA" stroke="#A9B4BA" stroke-width="2">
+    <rect x="0" y="-5" width="132" height="10" rx="5"/>
+    <path d="M-40 -15 v13 M-27 -17 v15 M-14 -15 v13"/>
+    <path d="M-46 -2 h50 q8 0 8 7 t-8 7 h-50 z"/>
+  </g>
+
+  <!-- 텍스트 -->
+  <g>
+    <rect x="60" y="512" width="470" height="88" rx="20" fill="#FFFAEE" opacity="0.94" stroke="#D9C7A3" stroke-width="3"/>
+    <text x="86" y="553" font-family="'Pretendard','Malgun Gothic','Apple SD Gothic Neo',sans-serif" font-size="34" font-weight="700" fill="#5A4326">15분 바나나 캐러멜 프렌치토스트</text>
+    <text x="86" y="583" font-family="'Pretendard','Malgun Gothic','Apple SD Gothic Neo',sans-serif" font-size="19" fill="#8A7554">오븐 없이 프라이팬 하나로 끝나는 디저트</text>
+  </g>
+
+  <rect width="1200" height="630" filter="url(#paper5)" opacity="0.12" style="mix-blend-mode:multiply"/>
+  <rect width="1200" height="630" fill="none" stroke="#8E6B44" stroke-width="16" opacity="0.12"/>
+</svg>
